@@ -3,45 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Phonk Music Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="shortcut icon" href="FOR ICON.png" type="image/x-icon">
+    <title>Phonk Music Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .discord-icon {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 2em;
+            color: #7289DA;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .discord-icon:hover {
+            transform: rotate(360deg);
+        }
+
+        #search {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 20px;
+            background-color: #2a2a2a;
+            color: white;
+            font-size: 16px;
+        }
+
+        .tracks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .track-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 15px;
+            transition: transform 0.2s, background-color 0.2s;
+            position: relative;
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            background-color: #282828;
+        }
+
+        .track-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .track-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+
+        .track-image-container:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .download-btn {
+            display: block;
+            background-color: #ff4081;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: #ff80ab;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .download-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .track-title {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-icon {
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+
+    </style>
 </head>
 <body>
     <header>
+        <i class="fab fa-discord discord-icon"></i>
         <h1>Phonk Music Download</h1>
         <input type="text" id="search" placeholder="Search for tracks...">
     </header>
-    <main>
-        <div class="track-card">
-            <img src="videoframe_6780.png" alt="Track Thumbnail">
-            <h2>IZZI (SLOWED)</h2>
-            <a href="https://drive.usercontent.google.com/u/9/uc?id=1AZgvt_p6n5eHs5e8Im9xiEStUBPQ1tpU&export=download" class="download-btn">Download</a>
-        </div>
-        <div class="track-card">
-            <img src="videoframe_1833.png" alt="Track Thumbnail">
-            <h2>X-KNIGHT</h2>
-            <a href="https://drive.usercontent.google.com/u/9/uc?id=1jw6YNi80LWo9311B_Z9zFFf68pk0TGs_&export=download" class="download-btn">Download</a>
-        </div>
-        <div class="track-card">
-            <img src="videoframe_2055.png" alt="Track Thumbnail">
-            <h2>ZUMA JUMP (SUPER SLOWED)</h2>
-            <a href="https://drive.usercontent.google.com/u/9/uc?id=1iMJ2vgu-OOYsNjeBxyEnSApT6B2NVfOb&export=download" class="download-btn">Download</a>
-        </div>
-        <div class="track-card">
-            <img src="videoframe_1731.png" alt="Track Thumbnail">
-            <h2>DARKNESS</h2>
-            <a href="https://drive.usercontent.google.com/u/9/uc?id=1XNMyKMOY43YDh453f93rBGDaxBfwAK0u&export=download" class="download-btn">Download</a>
-        </div>
-        <div class="track-card">
-            <img src="videoframe_1458.png" alt="Track Thumbnail">
-            <h2>FUNK DO BALKAN - Super Slowed</h2>
-            <a href="https://drive.usercontent.google.com/u/9/uc?id=1_XpYyvc1Iks1AtY_m_FQcscY2s4L__kg&export=download" class="download-btn">Download</a>
-        </div>
+    <main class="tracks-container">
+        <!-- Track cards will be generated by JavaScript -->
     </main>
-    <footer>
-        <marquee>&copy; 2024 Phonk Music https://discord.gg/JNUwJys7dm</marquee>
-    </footer>
-    <script src="script.js"></script>
+
+    <script>
+        const tracks = [
+            {
+                title: "IZZI (SLOWED)",
+                image: "https://i.ibb.co/bz2dWN7/videoframe-6780.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/9/uc?id=1AZgvt_p6n5eHs5e8Im9xiEStUBPQ1tpU&export=download",
+            audioURL: "https://www.dropbox.com/scl/fi/rpcccma0qr9ahyvac8p8e/IZZI-Slowed-NY8.mp3?rlkey=yu1lgdcxhkykuu1904i4nfg0h&st=vvzono1w&raw=1"
+            },
+            {
+                title: "X-KNIGHT",
+                image: "https://i.ibb.co/KrGb9x9/videoframe-1833.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/9/uc?id=1jw6YNi80LWo9311B_Z9zFFf68pk0TGs_&export=download",
+           audioURL: "https://www.dropbox.com/scl/fi/3oeid02fj881yo8eary61/XIOW-GXNRC-X-KNIGHT-Official-Vizualizer-XIOW.mp3?rlkey=88m526pmb597jl1adsvaxxdi3&st=jqdru39r&raw=1"
+            },
+            {
+                title: "ZUMA JUMP (SUPER SLOWED)",
+                image: "https://i.ibb.co/RYc5yRN/videoframe-2055.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/9/uc?id=1iMJ2vgu-OOYsNjeBxyEnSApT6B2NVfOb&export=download",
+                audioURL: "https://www.dropbox.com/scl/fi/as3p60igpjrsva5u2c8e6/ZUMA-JUMP-SUPER-SLOWED.mp3?rlkey=mhdm9xmuk8xrngzshxsbgylhr&st=u2k3dic3&raw=1"
+            },
+            {
+                title: "DARKNESS",
+                image: "https://i.ibb.co/HFfY3JQ/videoframe-1731.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/9/uc?id=1XNMyKMOY43YDh453f93rBGDaxBfwAK0u&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/mpa33t8d6lzncvydtrldb/DARKNESS.mp3?rlkey=9eudxhq0o34pl1lvsqehfwh64&st=rs0raspu&raw=1"
+            },
+            {
+                title: "FUNK DO BALKAN - Super Slowed",
+                image: "https://i.ibb.co/1LNwnzn/videoframe-1458.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/9/uc?id=1_XpYyvc1Iks1AtY_m_FQcscY2s4L__kg&export=download",
+                audioURL: "https://www.dropbox.com/scl/fi/dhup3jhphe35k7inba2zz/FUNK-DO-BALKAN-Super-Slowed.mp3?rlkey=cbyf9wyhvoiat234ojlcs727r&st=tgten3g4&raw=1"
+            },
+            {
+                title: "PITÃO FUNK (Hardstyle Remix)",
+                image: "https://i.ibb.co/LSwFFqg/videoframe-3252.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1UWj174y6-xURYMgR4j0t-6kHq_VIl77_&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/t11xo5yq7r2pvzp1yzbnr/PIT-O-FUNK-Hardstyle-Remix.mp3?rlkey=ozvriiwz3kb72l5vct5paj0af&st=ze2q5xzh&raw=1"
+            },
+            {
+                title: "JOGO MORTO (Slowed)",
+                image: "https://i.ibb.co/p229KKR/videoframe-1637.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1YT9tT4w05M3iceyun7KkCqpHupdzYPvO&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/m4rz3lngfk72612ld8k6i/JOGO-MORTO-Slowed.mp3?rlkey=5hd9mo66psrl4l1i2ix86dphd&st=advmnz57&raw=1"
+            },
+            {
+                title: "TENTAÇÃO - X",
+                image: "https://i.ibb.co/TWL99Qj/videoframe-1872.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1YUIO0Tlowlmjkl3vvgoZmy1NhOIUVMWP&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/imlvbdnu9jbybncjc67pw/TENTA-O-X.mp3?rlkey=tfon4shn6ebbvur0rghm9wm9o&st=0wkqikrd&raw=1"
+            },
+            {
+                title: "Funk of Galáctico 2",
+                image: "https://i.ibb.co/xmdDY9Q/videoframe-2542.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=11HAzTIZCvAuRUogBB04iUbylBzYzi516&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/ca6br42k17ie5r0gjw6ci/Funk-of-Gal-ctico-2.mp3?rlkey=4gz2mzn21qdixabequfijuzei&st=6muj3bo5&raw=1"
+            },
+            {
+                title: "SXID - Funk of Galáctico",
+                image: "https://i.ibb.co/7S0jpKJ/videoframe-3947.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1Bw8DWWWGW_Gfc0RPQ3aFMMDvTrj1gHId&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/61942vztnv3swhjn340s0/SXID-Funk-of-Gal-ctico.mp3?rlkey=v4377ka1a3rlnhnp3tvhhli9u&st=62gacc10&raw=1"
+            },
+            {
+                title: "JESUS (SLOWED)",
+                image: "https://i.ibb.co/R0LcqLf/videoframe-1402.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1b90c20dtk4PxxR9Iq2sHivyN8M5iaxdJ&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/yuh30cie0phg5cbih6n5l/JESUS-SLOWED.mp3?rlkey=77ijhx0i1g2op2ghm9wiw8h1o&st=5f2zd8uh&raw=1"
+            },
+            {
+                title: "X-Menor",
+                image: "https://i.ibb.co/HNJXJ9P/videoframe-1729.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1n0L3Q0zhEkRdIBq2UeUbvJMsH8fLzORT&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/6n6juihl74m5fz9kyet75/X-Menor.mp3?rlkey=s65nlks4qh2ksrljv2pbzpjs6&st=x2bmhi5a&raw=1"
+            },
+            {
+                title: "ECOS DO ABISMO (Super Slowed)",
+                image: "https://i.ibb.co/Tcgs2nF/videoframe-2599.png",
+                downloadUrl: "https://drive.usercontent.google.com/u/3/uc?id=1JyrmTpYzXuKKGIf51-sZxQw98-C60A4S&export=download",
+          audioURL: "https://www.dropbox.com/scl/fi/bjkeglkaksj96ottrk7a2/ECOS-DO-ABISMO-Super-Slowed.mp3?rlkey=9fmxky4w5ohm77hcyahu0op9p&st=tm8b0kb6&raw=1"
+            },
+        ];
+
+        function createTrackCard(track) {
+            return `
+                <div class="track-card">
+                    <div class="track-image-container">
+                        <img src="${track.image}" alt="${track.title}">
+                        <i class="fas fa-play play-overlay"></i>
+                    </div>
+                    <h2 class="track-title">${track.title}</h2>
+                   <audio class="audio-player" controls controlslist="nodownload" loop>
+    <source src="${track.audioURL}" type="audio/mpeg">
+</audio>
+                    <a href="${track.downloadUrl}" class="download-btn" download>
+                        <div class="download-progress"></div>
+                        <span class="download-text">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </span>
+                    </a>
+                </div>
+            `;
+        }
+
+        // Generate track cards
+        const container = document.querySelector('.tracks-container');
+        tracks.forEach(track => {
+            container.innerHTML += createTrackCard(track);
+        });
+
+        // Search functionality
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.track-card').forEach(card => {
+                const title = card.querySelector('.track-title').textContent.toLowerCase();
+                card.style.display = title.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Play button functionality
+        document.querySelectorAll('.play-overlay').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.track-card');
+                const player = card.querySelector('.audio-player');
+                const allPlayers = document.querySelectorAll('.audio-player');
+                
+                allPlayers.forEach(p => {
+                    if (p !== player) {
+                        p.pause();
+                        p.style.display = 'none';
+                    }
+                });
+
+                if (player.style.display === 'none' || player.style.display === '') {
+                    player.style.display = 'block';
+                    player.play();
+                } else {
+                    player.style.display = 'none';
+                    player.pause();
+                }
+            });
+        });
+
+        // Download animation
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const progress = this.querySelector('.download-progress');
+                const text = this.querySelector('.download-text');
+                
+                progress.style.width = '0%';
+                let width = 0;
+                
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            progress.style.width = '0%';
+                            text.innerHTML = '<i class="fas fa-download"></i> <span>Download</span>';
+                        }, 500);
+                    } else {
+                        width += 2;
+                        progress.style.width = width + '%';
+                        if (width === 0) {
+                            text.innerHTML = '<i class="fas fa-spinner loading-icon"></i> <span>Downloading...</span>';
+                        }
+                    }
+                }, 20);
+            });
+        });
+
+        // Discord icon click handler
+        document.querySelector('.discord-icon').addEventListener('click', function() {
+            window.location.href = 'https://discord.gg/JNUwJys7dm';
+        });
+    </script>
 </body>
 </html>
